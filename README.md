@@ -1,3 +1,15 @@
+
+# Advanced Database Management (ADBM) Module Revision Guide
+
+This revision guide covers key concepts and topics related to the Advanced Database Management (ADBM) module. It includes summaries, examples, and explanations of important concepts in SQL, PL/SQL, and MongoDB.
+
+## Table of Contents
+
+- [PL/SQL Revision Guide for ADBM Module](#plsql-revision-guide-for-adbm-module)
+- [MongoDB Revision Guide for ADBM Module](#mongodb-revision-guide-for-adbm-module)
+
+---
+
 # PL/SQL Revision Guide for ADBM Module
 
 ## Introduction to PL/SQL
@@ -234,8 +246,93 @@ END;
 - **ZERO_DIVIDE:** Raised when division by zero occurs.
 - **OTHERS:** Handles all other exceptions not explicitly handled.
 
+<hr>
 
+# MongoDB Revision Guide for ADBM Module
 
+### Understanding MongoDB Query Structure
 
+#### 1. Basic Structure of a MongoDB Query
 
+- **db.collection.method(query, update, options)**
+  - `db`: Refers to the database object.
+  - `collection`: The collection within the database where the operation is performed.
+  - `method`: The action you want to perform (e.g., find, insert, update, delete).
+  - `query`: Specifies the criteria to match documents.
+  - `update`: Specifies how to modify the matched documents (used in update operations).
+  - `options`: Additional parameters to customize the operation (optional).
 
+#### 2. Creating a Collection
+
+Creating a collection in MongoDB is usually implicit, meaning it is created when you first insert a document. However, you can explicitly create a collection using:
+```js
+db.createCollection("collectionName");
+```
+#### 3. Inserting Documents
+
+- Insert a Single Document:
+```js
+  db.collection.insertOne({
+    field1: "value1",
+    field2: "value2"
+  });
+```
+- Insert Multiple Documents:
+```js
+  db.collection.insertMany([
+    { field1: "value1", field2: "value2" },
+    { field1: "value3", field2: "value4" }
+  ]);
+  ```
+
+#### 4. Retrieving Documents
+
+- Find All Documents:
+```js
+  db.collection.find();
+```
+- Find Documents with Criteria:
+```js
+  db.collection.find({ field: "value" });
+```
+- Find with Logical Operators:
+```js
+  db.collection.find({ field: { $gt: 100 } });  // greater than 100
+  db.collection.find({ field: { $lt: 100 } });  // less than 100
+  db.collection.find({ field: { $in: [value1, value2] } });  // in array of values
+```
+#### 5. Updating Documents
+
+- Update a Single Document:
+```js
+  db.collection.updateOne(
+    { queryField: "queryValue" }, // query to match the document
+    { $set: { fieldToUpdate: "newValue" } } // update operation
+  );
+  ```
+
+- Update Multiple Documents:
+```js
+  db.collection.updateMany(
+    { queryField: "queryValue" }, // query to match documents
+    { $set: { fieldToUpdate: "newValue" } } // update operation
+  );
+  ```
+
+- Common Update Operators:
+  - `$set`: Set the value of a field.
+  - `$inc`: Increment the value of a field.
+  - `$push`: Add an element to an array.
+  - `$pull`: Remove an element from an array.
+
+#### 6. Deleting Documents
+
+- Delete a Single Document:
+```js
+  db.collection.deleteOne({ field: "value" });
+```
+
+- Delete Multiple Documents:
+```js
+  db.collection.deleteMany({ field: "value" });
+```
